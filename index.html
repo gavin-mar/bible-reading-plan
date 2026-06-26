@@ -7,7 +7,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
       --bg: #1c1a17;
       --text: #e8e0d0;
@@ -15,7 +14,6 @@
       --accent: #d4b96a;
       --rule: #2e2b25;
     }
-
     html, body {
       min-height: 100vh;
       background: var(--bg);
@@ -25,7 +23,6 @@
       align-items: center;
       justify-content: center;
     }
-
     .card {
       text-align: center;
       padding: 0 32px;
@@ -34,12 +31,10 @@
       animation: fadeIn 1s ease forwards;
       opacity: 0;
     }
-
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(8px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-
     .eyebrow {
       font-family: 'Cinzel', serif;
       font-size: 11px;
@@ -48,14 +43,12 @@
       text-transform: uppercase;
       margin-bottom: 40px;
     }
-
     hr {
       border: none;
       border-top: 1px solid var(--rule);
       margin: 32px auto;
       width: 60px;
     }
-
     .day-name {
       font-family: 'Cinzel', serif;
       font-size: 15px;
@@ -64,14 +57,12 @@
       text-transform: uppercase;
       margin-bottom: 10px;
     }
-
     .date-display {
       font-size: 40px;
       font-weight: 300;
       color: var(--text);
       letter-spacing: 0.02em;
     }
-
     .reading-label {
       font-family: 'Cinzel', serif;
       font-size: 11px;
@@ -80,7 +71,6 @@
       text-transform: uppercase;
       margin-bottom: 14px;
     }
-
     .verse {
       font-size: 64px;
       font-weight: 600;
@@ -88,14 +78,12 @@
       line-height: 1.1;
       letter-spacing: 0.01em;
     }
-
     .verse.special {
       font-size: 40px;
       font-style: italic;
       font-weight: 300;
       color: var(--text);
     }
-
     .sub-note {
       font-size: 17px;
       font-style: italic;
@@ -103,7 +91,6 @@
       margin-top: 16px;
       line-height: 1.6;
     }
-
     .plan-note {
       font-family: 'Cinzel', serif;
       font-size: 9px;
@@ -117,95 +104,101 @@
 <body>
   <div class="card">
     <div class="eyebrow">Bible Reading Plan</div>
-
     <div class="day-name" id="dayName">—</div>
     <div class="date-display" id="dateDisplay">—</div>
-
     <hr>
-
     <div class="reading-label">Complete Through</div>
     <div class="verse" id="verse">—</div>
     <div class="sub-note" id="subNote"></div>
-
     <hr>
-
     <div class="plan-note">01 Jul 2025 — 30 Jun 2026</div>
   </div>
 
   <script>
     const plan = {
+      // July 2025
       "07-01":"Genesis 3","07-02":"Genesis 6","07-03":"Genesis 9","07-04":"Genesis 12",
-      "07-05":"Genesis 15","07-06":"Genesis 18","07-07":"Genesis 21","07-08":"Genesis 26",
+      "07-05":"Genesis 15","07-06":"Genesis 18","07-07":"Genesis 23","07-08":"Genesis 26",
       "07-09":"Genesis 29","07-10":"Genesis 32","07-11":"Genesis 35","07-12":"Genesis 38",
-      "07-13":"Genesis 41","07-14":"Genesis 44","07-15":"Genesis 49","07-16":"Exodus 4",
+      "07-13":"Genesis 41","07-14":"Genesis 46","07-15":"Exodus 1","07-16":"Exodus 4",
       "07-17":"Exodus 7","07-18":"Exodus 10","07-19":"Exodus 13","07-20":"Exodus 16",
-      "07-21":"Exodus 19","07-22":"Exodus 24","07-23":"Exodus 27","07-24":"Exodus 30",
+      "07-21":"Exodus 21","07-22":"Exodus 24","07-23":"Exodus 27","07-24":"Exodus 30",
       "07-25":"Exodus 33","07-26":"Exodus 36","07-27":"Exodus 39","07-28":"Leviticus 4",
       "07-29":"Leviticus 7","07-30":"Leviticus 10","07-31":"Leviticus 13",
-      "08-01":"Leviticus 16","08-02":"Leviticus 19","08-03":"Leviticus 22","08-04":"Leviticus 25",
+      // August 2025
+      "08-01":"Leviticus 16","08-02":"Leviticus 19","08-03":"Leviticus 22","08-04":"Leviticus 27",
       "08-05":"Numbers 3","08-06":"Numbers 6","08-07":"Numbers 9","08-08":"Numbers 12",
-      "08-09":"Numbers 15","08-10":"Numbers 18","08-11":"Numbers 21","08-12":"Numbers 26",
-      "08-13":"Numbers 29","08-14":"Numbers 32","08-15":"Numbers 35","08-16":"Numbers 36",
-      "08-17":"Deuteronomy 4","08-18":"Deuteronomy 7","08-19":"Deuteronomy 12","08-20":"Deuteronomy 15",
+      "08-09":"Numbers 15","08-10":"Numbers 18","08-11":"Numbers 23","08-12":"Numbers 26",
+      "08-13":"Numbers 29","08-14":"Numbers 32","08-15":"Numbers 35","08-16":"Deuteronomy 1",
+      "08-17":"Deuteronomy 4","08-18":"Deuteronomy 9","08-19":"Deuteronomy 12","08-20":"Deuteronomy 15",
       "08-21":"Deuteronomy 18","08-22":"Deuteronomy 21","08-23":"Deuteronomy 24","08-24":"Deuteronomy 27",
-      "08-25":"Deuteronomy 30","08-26":"Deuteronomy 35","08-27":"Joshua 3","08-28":"Joshua 6",
-      "08-29":"Joshua 9","08-30":"Joshua 12","08-31":"Joshua 15",
-      "09-01":"Joshua 21","09-02":"Judges 2","09-03":"Judges 3","09-04":"Judges 6",
-      "09-05":"Judges 9","09-06":"Judges 12","09-07":"Judges 15","09-08":"Judges 18",
-      "09-09":"Ruth 2","09-10":"Ruth 4","09-11":"1 Samuel 4","09-12":"1 Samuel 7",
+      "08-25":"Deuteronomy 32","08-26":"Joshua 1","08-27":"Joshua 4","08-28":"Joshua 7",
+      "08-29":"Joshua 10","08-30":"Joshua 13","08-31":"Joshua 16",
+      // September 2025
+      "09-01":"Joshua 21","09-02":"Joshua 24","09-03":"Judges 3","09-04":"Judges 6",
+      "09-05":"Judges 9","09-06":"Judges 12","09-07":"Judges 15","09-08":"Judges 20",
+      "09-09":"Ruth 2","09-10":"1 Samuel 1","09-11":"1 Samuel 4","09-12":"1 Samuel 7",
       "09-13":"1 Samuel 10","09-14":"1 Samuel 13","09-15":"1 Samuel 18","09-16":"1 Samuel 21",
       "09-17":"1 Samuel 24","09-18":"1 Samuel 27","09-19":"1 Samuel 30","09-20":"2 Samuel 2",
-      "09-21":"2 Samuel 5","09-22":"2 Samuel 8","09-23":"2 Samuel 13","09-24":"2 Samuel 16",
+      "09-21":"2 Samuel 5","09-22":"2 Samuel 10","09-23":"2 Samuel 13","09-24":"2 Samuel 16",
       "09-25":"2 Samuel 19","09-26":"2 Samuel 22","09-27":"1 Kings 1","09-28":"1 Kings 4",
-      "09-29":"1 Kings 7","09-30":"1 Kings 12",
-      "10-01":"1 Kings 15","10-02":"1 Kings 18","10-03":"1 Kings 21","10-04":"2 Kings 3",
+      "09-29":"1 Kings 9","09-30":"1 Kings 12",
+      // October 2025
+      "10-01":"1 Kings 15","10-02":"1 Kings 18","10-03":"1 Kings 22","10-04":"2 Kings 3",
       "10-05":"2 Kings 6","10-06":"2 Kings 9","10-07":"2 Kings 12","10-08":"2 Kings 15",
-      "10-09":"2 Kings 18","10-10":"2 Kings 21","10-11":"2 Kings 24","10-12":"1 Chronicles 2",
-      "10-13":"1 Chronicles 5","10-14":"1 Chronicles 10","10-15":"1 Chronicles 13","10-16":"1 Chronicles 16",
-      "10-17":"1 Chronicles 19","10-18":"1 Chronicles 22","10-19":"1 Chronicles 25","10-20":"1 Chronicles 28",
+      "10-09":"2 Kings 18","10-10":"2 Kings 21","10-11":"2 Kings 25","10-12":"1 Chronicles 2",
+      "10-13":"1 Chronicles 7","10-14":"1 Chronicles 10","10-15":"1 Chronicles 13","10-16":"1 Chronicles 16",
+      "10-17":"1 Chronicles 19","10-18":"1 Chronicles 22","10-19":"1 Chronicles 25","10-20":"2 Chronicles 1",
       "10-21":"2 Chronicles 4","10-22":"2 Chronicles 7","10-23":"2 Chronicles 10","10-24":"2 Chronicles 13",
-      "10-25":"2 Chronicles 16","10-26":"2 Chronicles 19","10-27":"2 Chronicles 22","10-28":"2 Chronicles 27",
+      "10-25":"2 Chronicles 16","10-26":"2 Chronicles 19","10-27":"2 Chronicles 24","10-28":"2 Chronicles 27",
       "10-29":"2 Chronicles 30","10-30":"2 Chronicles 33","10-31":"2 Chronicles 36",
-      "11-01":"Ezra 3","11-02":"Ezra 6","11-03":"Ezra 9","11-04":"Nehemiah 4",
+      // November 2025
+      "11-01":"Ezra 3","11-02":"Ezra 6","11-03":"Nehemiah 1","11-04":"Nehemiah 4",
       "11-05":"Nehemiah 7","11-06":"Nehemiah 10","11-07":"Nehemiah 13","11-08":"Esther 3",
-      "11-09":"Esther 6","11-10":"Esther 9","11-11":"Job 4","11-12":"Job 7",
+      "11-09":"Esther 6","11-10":"Esther 10","11-11":"Job 4","11-12":"Job 7",
       "11-13":"Job 10","11-14":"Job 13","11-15":"Job 16","11-16":"Job 19",
-      "11-17":"Job 22","11-18":"Job 27","11-19":"Job 30","11-20":"Job 33",
+      "11-17":"Job 24","11-18":"Job 27","11-19":"Job 30","11-20":"Job 33",
       "11-21":"Job 36","11-22":"Job 39","11-23":"Job 42","11-24":"Psalms 5",
       "11-25":"Psalms 8","11-26":"Psalms 11","11-27":"Psalms 14","11-28":"Psalms 17",
       "11-29":"Psalms 20","11-30":"Psalms 23",
+      // December 2025
       "12-01":"Psalms 28","12-02":"Psalms 31","12-03":"Psalms 34","12-04":"Psalms 37",
-      "12-05":"Psalms 40","12-06":"Psalms 43","12-07":"Psalms 46","12-08":"Psalms 49",
+      "12-05":"Psalms 40","12-06":"Psalms 43","12-07":"Psalms 46","12-08":"Psalms 51",
       "12-09":"Psalms 54","12-10":"Psalms 57","12-11":"Psalms 60","12-12":"Psalms 63",
-      "12-13":"Psalms 66","12-14":"Psalms 69","12-15":"Psalms 72","12-16":"Psalms 77",
+      "12-13":"Psalms 66","12-14":"Psalms 69","12-15":"Psalms 74","12-16":"Psalms 77",
       "12-17":"Psalms 80","12-18":"Psalms 83","12-19":"Psalms 86","12-20":"Psalms 89",
       "12-21":"Psalms 92","12-22":"Psalms 95","12-23":"Psalms 98","12-24":"Psalms 101",
       "12-25":"Psalms 104","12-26":"Psalms 107","12-27":"Psalms 109","12-28":"Psalms 111",
       "12-29":"Psalms 113","12-30":"Psalms 115","12-31":"Psalms 117:1",
+      // January 2026
       "01-01":"Psalms 121","01-02":"Psalms 125","01-03":"Psalms 129","01-04":"Psalms 133",
       "01-05":"Psalms 137","01-06":"Psalms 141","01-07":"Psalms 145","01-08":"Psalms 149",
       "01-09":"Proverbs 3","01-10":"Proverbs 7","01-11":"Proverbs 11","01-12":"Proverbs 15",
       "01-13":"Proverbs 19","01-14":"Proverbs 23","01-15":"Proverbs 27","01-16":"Proverbs 31",
-      "01-17":"Ecclesiastes 4","01-18":"Ecclesiastes 8","01-19":"Ecclesiastes 12","01-20":"Song of Solomon 4",
-      "01-21":"Song of Solomon 8","01-22":"Isaiah 4","01-23":"Isaiah 8","01-24":"Isaiah 12",
-      "01-25":"Isaiah 16","01-26":"Isaiah 20","01-27":"Isaiah 24","01-28":"Isaiah 28",
-      "01-29":"Isaiah 32","01-30":"Isaiah 36","01-31":"Isaiah 40",
+      "01-17":"Ecclesiastes 4","01-18":"Ecclesiastes 8","01-19":"Ecclesiastes 12",
+      "01-20":"Song of Solomon 4","01-21":"Song of Solomon 8",
+      "01-22":"Isaiah 4","01-23":"Isaiah 8","01-24":"Isaiah 12","01-25":"Isaiah 16",
+      "01-26":"Isaiah 20","01-27":"Isaiah 24","01-28":"Isaiah 28","01-29":"Isaiah 32",
+      "01-30":"Isaiah 36","01-31":"Isaiah 40",
+      // February 2026
       "02-01":"Isaiah 44","02-02":"Isaiah 48","02-03":"Isaiah 52","02-04":"Isaiah 56",
       "02-05":"Isaiah 60","02-06":"Isaiah 64","02-07":"Jeremiah 2","02-08":"Jeremiah 6",
       "02-09":"Jeremiah 10","02-10":"Jeremiah 14","02-11":"Jeremiah 18","02-12":"Jeremiah 22",
       "02-13":"Jeremiah 26","02-14":"Jeremiah 30","02-15":"Jeremiah 34","02-16":"Jeremiah 38",
       "02-17":"Jeremiah 42","02-18":"Jeremiah 46","02-19":"Jeremiah 50","02-20":"Lamentations 2",
-      "02-21":"Lamentations 5","02-22":"Ezekiel 5","02-23":"Ezekiel 9","02-24":"Ezekiel 13",
+      "02-21":"Ezekiel 1","02-22":"Ezekiel 5","02-23":"Ezekiel 9","02-24":"Ezekiel 13",
       "02-25":"Ezekiel 16","02-26":"Ezekiel 19","02-27":"Ezekiel 22","02-28":"Ezekiel 25",
+      // March 2026
       "03-01":"Ezekiel 28","03-02":"Ezekiel 31","03-03":"Ezekiel 34","03-04":"Ezekiel 37",
       "03-05":"Ezekiel 40","03-06":"Ezekiel 43","03-07":"Ezekiel 46","03-08":"Daniel 1",
       "03-09":"Daniel 4","03-10":"Daniel 7","03-11":"Daniel 10","03-12":"Hosea 1",
       "03-13":"Hosea 4","03-14":"Hosea 7","03-15":"Hosea 10","03-16":"Hosea 13",
       "03-17":"Joel 2","03-18":"Amos 2","03-19":"Amos 5","03-20":"Amos 8",
-      "03-21":"Jonah 1","03-22":"Jonah 3","03-23":"Micah 3","03-24":"Micah 6",
+      "03-21":"Jonah 1","03-22":"Jonah 4","03-23":"Micah 3","03-24":"Micah 6",
       "03-25":"Nahum 2","03-26":"Habakkuk 2","03-27":"Zephaniah 2","03-28":"Haggai 2",
       "03-29":"Zechariah 3","03-30":"Zechariah 6","03-31":"Zechariah 9",
-      "04-01":"Zechariah 12","04-02":"Malachi 4","04-03":"Malachi 4",
+      // April 2026
+      "04-01":"Zechariah 12","04-02":"Malachi 1","04-03":"Malachi 4",
       "04-04":"Holy Saturday",
       "04-05":"Matthew 3","04-06":"Matthew 6","04-07":"Matthew 9","04-08":"Matthew 12",
       "04-09":"Matthew 15","04-10":"Matthew 18","04-11":"Matthew 21","04-12":"Matthew 24",
@@ -214,22 +207,26 @@
       "04-21":"Luke 7","04-22":"Luke 10","04-23":"Luke 13","04-24":"Luke 16",
       "04-25":"Luke 19","04-26":"Luke 22","04-27":"John 1","04-28":"John 4",
       "04-29":"John 7","04-30":"John 10",
+      // May 2026
       "05-01":"John 13","05-02":"John 16","05-03":"John 19","05-04":"Acts 1",
       "05-05":"Acts 4","05-06":"Acts 7","05-07":"Acts 10","05-08":"Acts 13",
       "05-09":"Acts 16","05-10":"Acts 19","05-11":"Acts 22","05-12":"Acts 25",
       "05-13":"Acts 28","05-14":"Romans 3","05-15":"Romans 6","05-16":"Romans 9",
       "05-17":"Romans 12","05-18":"Romans 15","05-19":"1 Corinthians 2","05-20":"1 Corinthians 5",
-      "05-21":"1 Corinthians 8","05-22":"1 Corinthians 11","05-23":"1 Corinthians 14","05-24":"2 Corinthians 1",
-      "05-25":"2 Corinthians 4","05-26":"2 Corinthians 7","05-27":"2 Corinthians 10","05-28":"2 Corinthians 13",
-      "05-29":"Galatians 3","05-30":"Galatians 6","05-31":"Ephesians 3",
-      "06-01":"Ephesians 6","06-02":"Philippians 3","06-03":"Colossians 2","06-04":"Colossians 4",
-      "06-05":"1 Thessalonians 4","06-06":"2 Thessalonians 2","06-07":"1 Timothy 2","06-08":"1 Timothy 5",
-      "06-09":"2 Timothy 2","06-10":"Titus 3","06-11":"Philemon 1","06-12":"Hebrews 3",
-      "06-13":"Hebrews 6","06-14":"Hebrews 9","06-15":"Hebrews 12","06-16":"James 2",
-      "06-17":"James 5","06-18":"1 Peter 3","06-19":"2 Peter 1","06-20":"1 John 4",
-      "06-21":"Revelation 22","06-22":"Revelation 22","06-23":"Revelation 22","06-24":"Revelation 22",
-      "06-25":"Revelation 22","06-26":"Revelation 22","06-27":"Revelation 22","06-28":"Revelation 22",
-      "06-29":"Revelation 22","06-30":"Revelation 22"
+      "05-21":"1 Corinthians 8","05-22":"1 Corinthians 11","05-23":"1 Corinthians 14",
+      "05-24":"2 Corinthians 1","05-25":"2 Corinthians 4","05-26":"2 Corinthians 7",
+      "05-27":"2 Corinthians 10","05-28":"2 Corinthians 13","05-29":"Galatians 3",
+      "05-30":"Galatians 6","05-31":"Ephesians 3",
+      // June 2026
+      "06-01":"Ephesians 6","06-02":"Philippians 3","06-03":"Colossians 2",
+      "06-04":"1 Thessalonians 1","06-05":"1 Thessalonians 4","06-06":"2 Thessalonians 2",
+      "06-07":"1 Timothy 2","06-08":"1 Timothy 5","06-09":"2 Timothy 2",
+      "06-10":"Titus 1","06-11":"Philemon 1","06-12":"Hebrews 3","06-13":"Hebrews 6",
+      "06-14":"Hebrews 9","06-15":"Hebrews 12","06-16":"James 2","06-17":"James 5",
+      "06-18":"1 Peter 3","06-19":"2 Peter 1","06-20":"1 John 1","06-21":"1 John 4",
+      "06-22":"3 John 1","06-23":"Revelation 2","06-24":"Revelation 5","06-25":"Revelation 8",
+      "06-26":"Revelation 11","06-27":"Revelation 14","06-28":"Revelation 17",
+      "06-29":"Revelation 20","06-30":"Revelation 22"
     };
 
     const notes = {
@@ -249,7 +246,7 @@
       const dd  = String(now.getDate()).padStart(2, '0');
       const key = `${mm}-${dd}`;
 
-      document.getElementById('dayName').textContent    = days[now.getDay()];
+      document.getElementById('dayName').textContent     = days[now.getDay()];
       document.getElementById('dateDisplay').textContent = `${dd}${months[now.getMonth()]}${now.getFullYear()}`;
 
       const reading = plan[key];
